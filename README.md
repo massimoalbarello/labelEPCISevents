@@ -1,7 +1,6 @@
-Simple meetups webapp using react:
-- list all meetups
-- create new meetup
-- add meetup to favourites
+Webapp used to label EPCIS events as original or fake:
+- list all events
+- add events to labeled events
 - no db
 - no ui
 

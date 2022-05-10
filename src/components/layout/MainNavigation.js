@@ -2,28 +2,25 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 
 import classes from './MainNavigation.module.css';
-import FavouriteContext from '../../store/favourites-context';
+import LabeledEventsContext from '../../store/labeledEvents-context';
  
 function MainNavigation() {
 
-    const favouriteCtx = useContext(FavouriteContext); 
+    const labeledCtx = useContext(LabeledEventsContext); 
     return (
         <header className={classes.header}>
-            <div>React Meetups</div>
+            <div>EPCIS events</div>
             <nav>
                 <ul>
                     <li>
-                        <Link to='/'>All Meetups</Link>
+                        <Link to='/'>All Events</Link>
                     </li>
                     <li>
-                        <Link to='/new-meetup'>New Meetup</Link>
-                    </li>
-                    <li>
-                        <Link to='/favourites'>
-                            My Favourites
+                        <Link to='/labeledEvents'>
+                            My labeled events
                             <br />
                             <span>
-                                {favouriteCtx.totalFavourites}
+                                {labeledCtx.totalLabeledEvents}
                             </span>
                         </Link>
                     </li>

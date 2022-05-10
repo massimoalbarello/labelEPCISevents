@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
-import MeetupList from '../components/meetups/MeetupList';
+import EventList from '../components/events/EventList';
+import LabeledEventsContext from '../store/labeledEvents-context';
 
-function AllMeetupsPage(props) {
+
+function AllEventsPage(props) {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [loadedMeetups, setloadedMeetups] = useState([]);
+    const labeledCtx = useContext(LabeledEventsContext);
 
     useEffect(() => {
         setIsLoading(true); 
         // simulate retrieving data from db
         setTimeout(() => {
             setIsLoading(false);
-            setloadedMeetups(props.meetups);
-            console.log("Loaded meetups from db");
+            console.log("Loaded events from db");
         }, 1000);
     }, [])
 
@@ -27,11 +28,11 @@ function AllMeetupsPage(props) {
     else {
         return (
             <section>
-                <h1>All Meetups</h1>
-                <MeetupList meetups={loadedMeetups} />
+                <h1>All Events</h1>
+                <EventList events={labeledCtx.unlabeledEvents} />;
             </section>
         )
     }
 }
 
-export default AllMeetupsPage;
+export default AllEventsPage;

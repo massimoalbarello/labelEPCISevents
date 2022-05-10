@@ -4,14 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
-import { FavouriteContextProvider } from './store/favourites-context';
+import { EventContextProvider } from './store/labeledEvents-context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <FavouriteContextProvider>
+    <EventContextProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </FavouriteContextProvider>
+    </EventContextProvider>
 );
