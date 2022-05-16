@@ -4,7 +4,7 @@ import EventList from '../components/events/EventList';
 import LabeledEventsContext from '../store/labeledEvents-context';
 
 
-function AllEventsPage(props) {
+function AllEventsPage() {
 
     const [isLoading, setIsLoading] = useState(true);
     const labeledCtx = useContext(LabeledEventsContext);

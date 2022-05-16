@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import AllEventsPage from './pages/AllEvents';
 import LabeledEventsPage from './pages/LabeledEvents';
+import MapPage from './pages/MapPage';
 import MainNavigation from './components/layout/MainNavigation';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<AllEventsPage />} />
         <Route path='/labeledEvents' element={<LabeledEventsPage />} />
+        <Route path='/map' element={<MapPage />} />
       </Routes>
     </div>
   );

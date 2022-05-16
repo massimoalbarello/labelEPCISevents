@@ -24,6 +24,9 @@ function MainNavigation() {
                             </span>
                         </Link>
                     </li>
+                    <li>
+                        <Link to='/map'>Map</Link>
+                    </li>
                 </ul>
             </nav>
         </header>
