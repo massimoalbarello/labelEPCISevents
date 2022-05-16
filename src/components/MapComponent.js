@@ -12,6 +12,7 @@ const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-map
 function MapComponent(props) {
 
     const [markerCount, updateMarkerCount] = useState(0);
+    const [canReplay, updateCanReplay] = useState(false);
 
     useEffect(() => {
         if (markerCount < props.coordinates.length) {
@@ -20,10 +21,20 @@ function MapComponent(props) {
                 console.log(props.coordinates[markerCount]);  
             }, 1000);
         }
-    }, [markerCount])
+        else {
+            updateCanReplay(true);
+        }
+    }, [markerCount]);
+
+    function replay() {
+        updateCanReplay(false);
+        console.log("Replaying events");
+        updateMarkerCount(0);
+    }
 
     return (
         <div>
+            {canReplay ? <button onClick={replay}>Replay</button> : null}
             <ComposableMap>
                 <Geographies geography={geoUrl}>
                     {({ geographies }) =>
@@ -49,7 +60,6 @@ function MapComponent(props) {
                     )
                 })}
             </ComposableMap>
-
         </div>
 
     )
