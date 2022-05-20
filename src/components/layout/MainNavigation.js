@@ -13,7 +13,7 @@ function MainNavigation() {
             <nav>
                 <ul>
                     <li>
-                        <Link to='/'>All Events</Link>
+                        <Link to='/allEvents'>All Events</Link>
                     </li>
                     <li>
                         <Link to='/labeledEvents'>
@@ -26,6 +26,9 @@ function MainNavigation() {
                     </li>
                     <li>
                         <Link to='/map'>Map</Link>
+                    </li>
+                    <li>
+                        <Link to='/overview'>Overview</Link>
                     </li>
                 </ul>
             </nav>

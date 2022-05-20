@@ -1,19 +1,22 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 import AllEventsPage from './pages/AllEvents';
 import LabeledEventsPage from './pages/LabeledEvents';
 import MapPage from './pages/MapPage';
-import MainNavigation from './components/layout/MainNavigation';
+import LoginForm from './LoginForm';
+import ProgressListPage from './pages/ProgressListPage';
+
 
 function App() {
   return (
     <div>
-      <MainNavigation />
       <Routes>
-        <Route path='/' element={<AllEventsPage />} />
-        <Route path='/labeledEvents' element={<LabeledEventsPage />} />
-        <Route path='/map' element={<MapPage />} />
-      </Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route path='/allEvents' element={<AllEventsPage />} />
+          <Route path='/labeledEvents' element={<LabeledEventsPage />} />
+          <Route path='/map' element={<MapPage />} />
+          <Route path='/overview' element={<ProgressListPage />} />
+        </Routes>
     </div>
   );
 }

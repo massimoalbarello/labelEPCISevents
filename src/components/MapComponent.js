@@ -55,7 +55,7 @@ function MapComponent(props) {
                     return (
                         // using longitude as key to prevent re-rendering
                         <Marker key={coordinatePair[0]} coordinates={coordinatePair}>
-                            <circle r={4+index} fill="#F53" />
+                            <circle r={3+index} fill="#F53" />
                         </Marker>
                     )
                 })}
