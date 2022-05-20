@@ -4,9 +4,11 @@ const EventContext = createContext({
     labeledEvents: [],
     unlabeledEvents: [],
     totalLabeledEvents: 0,
+    apiKey: "",
     addLabeledEvent: (labeledEvent) => {},
     removeLabeledEvent: (eventId) => {},
-    eventIsLabeled: (eventId) => {}
+    eventIsLabeled: (eventId) => {},
+    addApiKey: (apiKey) => {},
 });
 
 export function EventContextProvider(props) {
@@ -32,6 +34,7 @@ export function EventContextProvider(props) {
             image: 'https://picsum.photos/200/300',  
         }
     ]);
+    const [userApiKey, setUserApiKey] = useState("");
 
     function addLabeledEventHandler(labeledEvent) {
         setUserLabeledEvents((prevUserLabeledEvents) => {
@@ -42,7 +45,6 @@ export function EventContextProvider(props) {
                 return event.id !== labeledEvent.id;
             })
         })
-
     }
 
     function removeLabeledEventHandler(removedEvent) {
@@ -57,6 +59,10 @@ export function EventContextProvider(props) {
         })
     }
 
+    function addApiKeyHandler(apiKey) {
+        setUserApiKey(apiKey);
+    }
+
     function eventIsLabeledHandler(eventId) {
         return userLabeledEvents.some((event) => {
             return event.id === eventId;
@@ -67,9 +73,11 @@ export function EventContextProvider(props) {
         labeledEvents: userLabeledEvents,
         unlabeledEvents: userUnlabeledEvents,
         totalLabeledEvents : userLabeledEvents.length,
+        apiKey: userApiKey,
         addLabeledEvent: addLabeledEventHandler,
         removeLabeledEvent: removeLabeledEventHandler,
-        eventIsLabeled: eventIsLabeledHandler
+        eventIsLabeled: eventIsLabeledHandler,
+        addApiKey: addApiKeyHandler,
     };
 
 

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MainNavigation from './components/layout/MainNavigation';
 
+import MainNavigation from './components/layout/MainNavigation';
+import LabeledEventsContext from './store/labeledEvents-context';
 
 export default function LoginForm() {
+    
+    const labeledCtx = useContext(LabeledEventsContext);
 
-    let [api, setApi] = useState('');
-    let navigate = useNavigate();
+    const [api, setApi] = useState('');
+    const navigate = useNavigate();
 
     function handleChange(e) {
         setApi(e.target.value);
@@ -15,7 +18,8 @@ export default function LoginForm() {
     function handleSubmit(event) {
         event.preventDefault();
         console.log(api);
-        navigate('/overview', { state: { api } });
+        labeledCtx.addApiKey(api);
+        navigate('/progressList');
     }
 
     return (

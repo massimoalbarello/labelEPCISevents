@@ -1,36 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import MapPage from './MapPage';
+import Collection from '../components/Collection';
 
+export default function ProgressListPage() {
 
-export default function EventList() {
-    
-    const location = useLocation();
-    const [api, setApi] = useState('');
-    const [dashboardUrl, setDashboardUrl] = useState('');
+    const [collections, setCollections] = useState([]);
 
-    useEffect(() => {        
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': location.state.api,
-            }
-        };
-        fetch('https://api.evrythng.io/v2/analytics/embed/dashboards/amplify::amplify_scans?embedDomain=https%3A%2F%2Fdashboard.evrythng.com&filters=', options )
-            .then( response => response.json() )
-            .then( response => {
-                console.log(response);
-                setDashboardUrl(response.ssoEmbedUrl);
-            } );
+    useEffect(() => {
+        // simulate retrieving data from db
+        setTimeout(() => {
+            setCollections([{
+                name: "Collection 1",
+                description: "This is a description for collection 1",
+            },
+            {
+                name: "Collection 2",
+                description: "This is a description for collection 2",
+            },
+            {
+                name: "Collection 3",
+                description: "This is a description for collection 3",
+            }]);
+        }, 2000);
     }, []);
 
-
-    return (
-        <div>
-            <MapPage />
-            <iframe src={dashboardUrl} width="100%" height="1700px" />
-        </div>
-    );
+    if (collections.length === 0) {
+        return (
+            <section> 
+                <p>Loading...</p>
+            </section>
+        )
+    }
+    else {
+        return (
+            <section>
+                {collections.map(collection => (
+                    <Collection 
+                        name={collection.name}
+                        description={collection.description}
+                    />
+                ))}
+            </section>
+        );
+    }  
 }

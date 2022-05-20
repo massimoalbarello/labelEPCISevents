@@ -28,7 +28,7 @@ function MainNavigation() {
                         <Link to='/map'>Map</Link>
                     </li>
                     <li>
-                        <Link to='/overview'>Overview</Link>
+                        <Link to='/progressList'>Overview</Link>
                     </li>
                 </ul>
             </nav>
