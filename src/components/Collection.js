@@ -6,8 +6,8 @@ function Collection(props) {
     let navigate = useNavigate();
 
     function handleClick() {
-        console.log(props.name);
-        navigate('/dashboard', { state: { name: props.name } });
+        // console.log(props.id);
+        navigate('/dashboard', { state: { id: props.id } });
     }
 
     return (
@@ -22,7 +22,7 @@ function Collection(props) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" onClick={handleClick}>Label</Button>
+                    <Button size="small" onClick={handleClick}>{props.label}</Button>
                 </CardActions>
             </Card>
         </div>

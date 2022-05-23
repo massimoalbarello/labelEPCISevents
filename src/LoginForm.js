@@ -17,7 +17,7 @@ export default function LoginForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(api);
+        // console.log(api);
         labeledCtx.addApiKey(api);
         navigate('/progressList');
     }

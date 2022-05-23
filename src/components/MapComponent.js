@@ -18,7 +18,7 @@ function MapComponent(props) {
         if (markerCount < props.coordinates.length) {
             setTimeout(() => {
                 updateMarkerCount(() => markerCount + 1);
-                console.log(props.coordinates[markerCount]);  
+                // console.log(props.coordinates[markerCount]);  
             }, 1000);
         }
         else {
@@ -28,7 +28,7 @@ function MapComponent(props) {
 
     function replay() {
         updateCanReplay(false);
-        console.log("Replaying events");
+        // console.log("Replaying events");
         updateMarkerCount(0);
     }
 
