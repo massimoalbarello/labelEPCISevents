@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 let batchIndex = 0;
 app.get('/collections', function (req, res) {
-    console.log("New batch requested");
+    console.log("\nNew batch requested");
 
     const collectionsBatches = [
         {

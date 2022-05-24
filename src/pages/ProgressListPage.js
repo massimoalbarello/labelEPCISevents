@@ -1,5 +1,5 @@
-import { useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Collection from '../components/Collection';
@@ -9,10 +9,12 @@ export default function ProgressListPage() {
 
     const location = useLocation();
     const labeledCtx = useContext(LabeledEventsContext);
+    const [canSubmit, setCanSubmit] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (location.state.requestBatch) {
-            console.log("\nRequesting new batch");
+            console.log("Requesting new batch");
             axios.get('http://localhost:8000/collections')
                 .then((response) => {
                     // console.log(response.data);
@@ -22,10 +24,15 @@ export default function ProgressListPage() {
                     console.log(error);
                 });
         }
+        if (labeledCtx.totalLabeledCollections === 3) {
+            // console.log("All collections labeled");
+            setCanSubmit(true);
+        }
     }, []);
 
     function submitHandler() {
-        console.log("Submitting labeled batch");
+        navigate('/');
+
     }
 
     if (Object.entries(labeledCtx.collectionsBatch).length === 0) {
@@ -46,6 +53,7 @@ export default function ProgressListPage() {
                         label={collection.label}
                     />
                 ))}
+                {canSubmit && <button onClick={submitHandler}>Submit</button>}
             </section>
         );
     }  

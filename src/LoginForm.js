@@ -15,22 +15,23 @@ export default function LoginForm() {
         setApi(e.target.value);
     }
 
-    function handleSubmit(event) {
+    function handleLogin(event) {
         event.preventDefault();
         // console.log(api);
         labeledCtx.addApiKey(api);
+        labeledCtx.resetTotalLabeledCollections();
         navigate('/progressList', { state: { requestBatch: true } });
     }
 
     return (
         <section>
             <MainNavigation />
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
             <label>
                 API Key:
                 <input type="text" value={api} onChange={handleChange}/>
             </label>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Login" />
         </form>
         </section>
         );

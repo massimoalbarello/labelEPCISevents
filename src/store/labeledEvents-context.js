@@ -5,12 +5,14 @@ const EventContext = createContext({
     unlabeledEvents: [],
     totalLabeledEvents: 0,
     collectionsBatch: {},
+    totalLabeledCollections: 0,
     apiKey: "",
     addLabeledEvent: (labeledEvent) => {},
     removeLabeledEvent: (eventId) => {},
     eventIsLabeled: (eventId) => {},
     setCollectionsBatch: (collectionsBatch) => {},
     setCollectionLabel: (collectionId, label) => {},
+    resetTotalLabeledCollections: () => {},
     addApiKey: (apiKey) => {},
 });
 
@@ -38,6 +40,8 @@ export function EventContextProvider(props) {
         }
     ]);
     const [userCollectionsBatch, setUserCollectionsBatch] = useState({});
+
+    const [userTotalLabeledCollections, setUserTotalLabeledCollections] = useState(0);
 
     const [userApiKey, setUserApiKey] = useState("");
 
@@ -70,6 +74,12 @@ export function EventContextProvider(props) {
 
     function setCollectionLabelHandler(collectionId, label) {
         setUserCollectionsBatch((prevUserCollectionsBatch) => {
+            // console.log(prevUserCollectionsBatch[collectionId]['label']);
+            if (prevUserCollectionsBatch[collectionId]['label'] === 'unlabeled') {
+                setUserTotalLabeledCollections((userTotalLabeledCollections) => {
+                    return userTotalLabeledCollections + 1;
+                })
+            }
             return {
                 ...prevUserCollectionsBatch,
                 [collectionId]: {
@@ -80,6 +90,10 @@ export function EventContextProvider(props) {
         })
     }
 
+    function resetTotalLabeledCollectionsHandler() {
+        setUserTotalLabeledCollections(0);
+    }
+    
     function addApiKeyHandler(apiKey) {
         setUserApiKey(apiKey);
     }
@@ -95,12 +109,14 @@ export function EventContextProvider(props) {
         unlabeledEvents: userUnlabeledEvents,
         totalLabeledEvents : userLabeledEvents.length,
         collectionsBatch: userCollectionsBatch,
+        totalLabeledCollections: userTotalLabeledCollections,
         apiKey: userApiKey,
         addLabeledEvent: addLabeledEventHandler,
         removeLabeledEvent: removeLabeledEventHandler,
         eventIsLabeled: eventIsLabeledHandler,
         setCollectionsBatch: setCollectionsBatchHandler,
         setCollectionLabel: setCollectionLabelHandler,
+        resetTotalLabeledCollections: resetTotalLabeledCollectionsHandler,
         addApiKey: addApiKeyHandler,
     };
 
