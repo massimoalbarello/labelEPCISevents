@@ -1,36 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import { Button } from "@mui/material";
 import axios from "axios";
 
 import Collection from '../components/Collection';
+import LabeledEventsContext from '../store/labeledEvents-context';
 
 export default function ProgressListPage() {
 
     const location = useLocation();
-
-    const [collections, setCollections] = useState({});
-    let submitted;
+    const labeledCtx = useContext(LabeledEventsContext);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/collections')
-            .then(function (response) {
-                // console.log(response.data);
-                setCollections(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        if (location.state) {
-            console.log(location.state.canSubmit);
+        if (location.state.requestBatch) {
+            console.log("\nRequesting new batch");
+            axios.get('http://localhost:8000/collections')
+                .then((response) => {
+                    // console.log(response.data);
+                    labeledCtx.setCollectionsBatch(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }, []);
 
     function submitHandler() {
-        console.log("Submitted");
+        console.log("Submitting labeled batch");
     }
 
-    if (Object.entries(collections).length === 0) {
+    if (Object.entries(labeledCtx.collectionsBatch).length === 0) {
         return (
             <section> 
                 <p>Loading...</p>
@@ -40,7 +38,7 @@ export default function ProgressListPage() {
     else {
         return (
             <section>
-                {Object.entries(collections).map(([collectionId, collection]) => (
+                {Object.entries(labeledCtx.collectionsBatch).map(([collectionId, collection]) => (
                     <Collection key={collectionId}
                         id={collectionId}
                         name={collection.name}
@@ -48,9 +46,6 @@ export default function ProgressListPage() {
                         label={collection.label}
                     />
                 ))}
-                {location.state && location.state.canSubmit && (
-                    <Button variant="contained" onClick={submitHandler}>Submit</Button>
-                )}
             </section>
         );
     }  

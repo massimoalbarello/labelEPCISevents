@@ -4,10 +4,13 @@ const EventContext = createContext({
     labeledEvents: [],
     unlabeledEvents: [],
     totalLabeledEvents: 0,
+    collectionsBatch: {},
     apiKey: "",
     addLabeledEvent: (labeledEvent) => {},
     removeLabeledEvent: (eventId) => {},
     eventIsLabeled: (eventId) => {},
+    setCollectionsBatch: (collectionsBatch) => {},
+    setCollectionLabel: (collectionId, label) => {},
     addApiKey: (apiKey) => {},
 });
 
@@ -34,6 +37,8 @@ export function EventContextProvider(props) {
             image: 'https://picsum.photos/200/300',  
         }
     ]);
+    const [userCollectionsBatch, setUserCollectionsBatch] = useState({});
+
     const [userApiKey, setUserApiKey] = useState("");
 
     function addLabeledEventHandler(labeledEvent) {
@@ -59,6 +64,22 @@ export function EventContextProvider(props) {
         })
     }
 
+    function setCollectionsBatchHandler(collectionsBatch) {
+        setUserCollectionsBatch(collectionsBatch);
+    }
+
+    function setCollectionLabelHandler(collectionId, label) {
+        setUserCollectionsBatch((prevUserCollectionsBatch) => {
+            return {
+                ...prevUserCollectionsBatch,
+                [collectionId]: {
+                    ...prevUserCollectionsBatch[collectionId],
+                    label: label
+                }
+            }
+        })
+    }
+
     function addApiKeyHandler(apiKey) {
         setUserApiKey(apiKey);
     }
@@ -73,10 +94,13 @@ export function EventContextProvider(props) {
         labeledEvents: userLabeledEvents,
         unlabeledEvents: userUnlabeledEvents,
         totalLabeledEvents : userLabeledEvents.length,
+        collectionsBatch: userCollectionsBatch,
         apiKey: userApiKey,
         addLabeledEvent: addLabeledEventHandler,
         removeLabeledEvent: removeLabeledEventHandler,
         eventIsLabeled: eventIsLabeledHandler,
+        setCollectionsBatch: setCollectionsBatchHandler,
+        setCollectionLabel: setCollectionLabelHandler,
         addApiKey: addApiKeyHandler,
     };
 

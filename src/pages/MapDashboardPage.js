@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Button, ButtonGroup } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import MapComponent from '../components/MapComponent';
+import LabeledEventsContext from '../store/labeledEvents-context';
+
 
 const labelsTheme = createTheme({
   palette: {
@@ -33,6 +35,8 @@ function MapDashboardPage(props) {
 
     // console.log(props.api);
 
+    const labeledCtx = useContext(LabeledEventsContext);
+
     const location = useLocation();
     // console.log(location.state.id);
     
@@ -58,7 +62,6 @@ function MapDashboardPage(props) {
 
     function labeledAsIdHandler(event) {
         const label = event.target.id
-        console.log(location.state.id + " labeled as " + label);
         setCollectionLabel(label);
     }
 
@@ -67,8 +70,11 @@ function MapDashboardPage(props) {
             label: label,
         })
         .then(function (response) {
-            console.log(response);
-            navigate('/progressList', { state: { canSubmit: response.data.canSubmit } });
+            if (response.status === 204) {
+                console.log(location.state.id + " labeled as " + label);
+                labeledCtx.setCollectionLabel(location.state.id, label);
+                navigate('/progressList', { state: { requestBatch: false } });
+            }
         })
         .catch(function (error) {
             console.log(error);

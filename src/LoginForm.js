@@ -19,7 +19,7 @@ export default function LoginForm() {
         event.preventDefault();
         // console.log(api);
         labeledCtx.addApiKey(api);
-        navigate('/progressList');
+        navigate('/progressList', { state: { requestBatch: true } });
     }
 
     return (
