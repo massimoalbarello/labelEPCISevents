@@ -56,30 +56,10 @@ function MapDashboardPage(props) {
             } );
     }, []);
 
-    function labeledAs100AuthenticHandler() {
-        console.log(location.state.id + " labeled as 100% authentic");
-        setCollectionLabel("100% authentic");
-    }
-    function labeledAs50AuthenticHandler() {
-        console.log(location.state.id + " labeled as 50% authentic");
-        setCollectionLabel("50% authentic");
-    }
-    function labeledAs20AuthenticHandler() {
-        console.log(location.state.id + " labeled as 20% authentic");
-        setCollectionLabel("20% authentic");
-    }
-
-    function labeledAs100NotAuthenticHandler() {
-        console.log(location.state.id + " labeled as 100% not authentic");
-        setCollectionLabel("100% not authentic");
-    }
-    function labeledAs50NotAuthenticHandler() {
-        console.log(location.state.id + " labeled as 50% not authentic");
-        setCollectionLabel("50% not authentic");
-    }
-    function labeledAs20NotAuthenticHandler() {
-        console.log(location.state.id + " labeled as 20% not authentic");
-        setCollectionLabel("20% not authentic");
+    function labeledAsIdHandler(event) {
+        const label = event.target.id
+        console.log(location.state.id + " labeled as " + label);
+        setCollectionLabel(label);
     }
 
     function setCollectionLabel(label){
@@ -101,12 +81,12 @@ function MapDashboardPage(props) {
             <iframe src={dashboardUrl} width="100%" height="1700px" />
             <ThemeProvider theme={labelsTheme}>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                    <Button color="authentic1" onClick={labeledAs100AuthenticHandler}>Authentic</Button>
-                    <Button color="authentic2" onClick={labeledAs50AuthenticHandler} style={{minWidth: "100px"}}></Button>
-                    <Button color="authentic3" onClick={labeledAs20AuthenticHandler} style={{minWidth: "100px"}}></Button>
-                    <Button color="notAuthentic3" onClick={labeledAs20NotAuthenticHandler} style={{minWidth: "100px"}}></Button>
-                    <Button color="notAuthentic2" onClick={labeledAs50NotAuthenticHandler} style={{minWidth: "100px"}}></Button>
-                    <Button color="notAuthentic1" onClick={labeledAs100NotAuthenticHandler}>Not Authentic</Button>
+                    <Button id="100% authentic" color="authentic1" onClick={labeledAsIdHandler}>Authentic</Button>
+                    <Button id="50% authentic" color="authentic2" onClick={labeledAsIdHandler} style={{minWidth: "100px"}}></Button>
+                    <Button id="20% authentic" color="authentic3" onClick={labeledAsIdHandler} style={{minWidth: "100px"}}></Button>
+                    <Button id="20% not authentic" color="notAuthentic3" onClick={labeledAsIdHandler} style={{minWidth: "100px"}}></Button>
+                    <Button id="50% not authentic" color="notAuthentic2" onClick={labeledAsIdHandler} style={{minWidth: "100px"}}></Button>
+                    <Button id="100% not authentic" color="notAuthentic1" onClick={labeledAsIdHandler}>Not Authentic</Button>
                 </ButtonGroup>    
             </ThemeProvider>
         </div>
